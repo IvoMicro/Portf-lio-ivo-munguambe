@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ivo Munguambe | Designer Gráfico</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #e8e6e3;
+      scroll-behavior: smooth;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 8rem 0;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      background-image: url('assets/imagens/fundo-hero.jpg');
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+    }
+    .hero .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b89b7a;
+      margin-bottom: 0.8rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    .cv-btn {
+      background: white;
+      color: #0a0a0a;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.25s;
+    }
+    .cv-btn:hover {
+      background: #eaeaea;
+      transform: translateY(-3px);
+    }
+
+    /* Projetos */
+    .projects-section {
+      padding: 5rem 0 4rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      display: inline-block;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: #b89b7a;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .project-card {
+      position: relative;
+      background: #111;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+    }
+    .card-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .project-card:hover .card-img {
+      transform: scale(1.02);
+    }
+    .overlay-click {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      text-align: center;
+      padding: 1.2rem 0;
+      transform: translateY(100%);
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .project-card:hover .overlay-click {
+      transform: translateY(0);
+    }
+
+    /* Ferramentas */
+    .tools-section {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, #0f0f0f 0%, #0a0a0a 100%);
+      border-top: 1px solid #1c1c1c;
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .tools-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .tools-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: #e8e6e3;
+      letter-spacing: -0.3px;
+    }
+    .tools-header p {
+      color: #a0a0a0;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.2rem;
+    }
+    .tool-card {
+      background: rgba(20, 20, 20, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem 1.8rem;
+      width: 180px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .tool-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b89b7a, transparent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .tool-card:hover::after {
+      transform: scaleX(1);
+    }
+    .tool-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(184, 155, 122, 0.3);
+      background: rgba(30, 30, 30, 0.85);
+      box-shadow: 0 15px 30px -12px rgba(0,0,0,0.5);
+    }
+    .tool-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      background: linear-gradient(135deg, #e0e0e0, #b89b7a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: 0.2s;
+    }
+    .tool-card:hover .tool-icon {
+      background: linear-gradient(135deg, #ffffff, #d4b48c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      transform: scale(1.05);
+    }
+    .tool-card span {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-top: 0.5rem;
+      color: #ddd;
+    }
+    .tool-card small {
+      font-size: 0.65rem;
+      color: #888;
+      display: block;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    /* Banner CTA - imagem com extensão .jpeg */
+    .cta-banner {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-color: #1a1a1a; /* fallback */
+      padding: 5rem 0;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .cta-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .cta-content p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .cta-contact {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-contact a {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+    .cta-contact a:hover {
+      background: #b89b7a;
+      border-color: #b89b7a;
+      color: #0a0a0a;
+      transform: translateY(-2px);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .modal-content img {
+      max-width: 90vw;
+      max-height: 85vh;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .close-modal {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      background: rgba(20,20,20,0.8);
+      backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 0.6rem 1.2rem;
+      color: white;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #050505;
+      font-size: 0.8rem;
+      color: #777;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    @media (max-width: 680px) {
+      .hero { padding: 4rem 0; }
+      .hero h1 { font-size: 2.2rem; }
+      .tool-card { width: 150px; padding: 1.5rem 1rem; }
+      .tool-icon { font-size: 2.2rem; }
+      .tools-header h3 { font-size: 1.6rem; }
+      .cta-content h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const projetos = Array.from({ length: 15 }, (_, i) => ({
+      id: i + 1,
+      imagem: `assets/imagens/projeto${i+1}.jpg`
+    }));
+
+    const caminhoCV = "assets/cv/Meu_CV.pdf";
+    const imagemFundoHero = "assets/imagens/fundo-hero.jpg";
+    // ALTERADO: agora aponta para .jpeg
+    const imagemFundoCTA = "assets/imagens/fundo-cta.jpeg";
+    const whatsappNumero = "258875707624";
+    const emailContato = "ivomicroship@gmail.com";
+
+    const App = () => {
+      const [modalOpen, setModalOpen] = React.useState(false);
+      const [imagemSelecionada, setImagemSelecionada] = React.useState("");
+
+      const abrirModal = (img) => {
+        setImagemSelecionada(img);
+        setModalOpen(true);
+        document.body.style.overflow = "hidden";
+      };
+      const fecharModal = () => {
+        setModalOpen(false);
+        document.body.style.overflow = "auto";
+      };
+      const baixarCV = () => {
+        const link = document.createElement("a");
+        link.href = caminhoCV;
+        link.download = "Meu_CV.pdf";
+        link.click();
+      };
+
+      React.useEffect(() => {
+        const hero = document.querySelector('.hero');
+        if (hero) hero.style.backgroundImage = `url('${imagemFundoHero}')`;
+        
+        const cta = document.querySelector('.cta-banner');
+        if (cta) {
+          const imgTest = new Image();
+          imgTest.src = imagemFundoCTA;
+          imgTest.onload = () => {
+            cta.style.backgroundImage = `url('${imagemFundoCTA}')`;
+          };
+          imgTest.onerror = () => {
+            console.log("Imagem fundo-cta.jpeg não encontrada, usando cor sólida");
+            cta.style.backgroundImage = 'none';
+          };
+        }
+      }, []);
+
+      return (
+        <div>
+          <div className="hero">
+            <div className="hero-content">
+              <div className="name">Ivo Munguambe</div>
+              <h1>Bem‑vindo ao meu portfólio</h1>
+              <p>Designer gráfico especialista em <strong>Corel Draw</strong>, com domínio intermediário em <strong>Adobe Illustrator, Photoshop e Affinity Designer</strong>.</p>
+              <button onClick={baixarCV} className="cv-btn"><i className="fas fa-download"></i> Baixar meu CV (PDF)</button>
+            </div>
+          </div>
+
+          <div className="container projects-section">
+            <div className="section-title">Portfólio</div>
+            <p style={{ marginTop: "0.75rem", color: "#aaa" }}>Clique sobre qualquer imagem para ampliar.</p>
+            <div className="project-grid">
+              {projetos.map(proj => (
+                <div key={proj.id} className="project-card" onClick={() => abrirModal(proj.imagem)}>
+                  <img src={proj.imagem} alt={`Projeto ${proj.id}`} className="card-img" loading="lazy" />
+                  <div className="overlay-click"><i className="fas fa-search-plus"></i> clique aqui</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="tools-section">
+            <div className="container">
+              <div className="tools-header">
+                <h3>Ferramentas & domínio</h3>
+                <p>softwares que utilizo no dia a dia</p>
+              </div>
+              <div className="tools-grid">
+                <div className="tool-card"><i className="fab fa-adobe tool-icon"></i><span>Illustrator</span><small>Adobe</small></div>
+                <div className="tool-card"><i className="fas fa-draw-polygon tool-icon"></i><span>Corel Draw</span><small>Corel</small></div>
+                <div className="tool-card"><i className="fab fa-adobe tool-icon"></i><span>Photoshop</span><small>Adobe</small></div>
+                <div className="tool-card"><i className="fas fa-paintbrush-fine tool-icon"></i><span>Affinity Designer</span><small>Serif</small></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="cta-banner">
+            <div className="cta-content">
+              <h2>Precisa de uma identidade visual marcante?</h2>
+              <p>Vamos transformar suas ideias em design de impacto.</p>
+              <div className="cta-contact">
+                <a href={`https://wa.me/${whatsappNumero}`} target="_blank"><i className="fab fa-whatsapp"></i> (87) 5707-624</a>
+                <a href={`mailto:${emailContato}`}><i className="fas fa-envelope"></i> ivomicroship@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          {modalOpen && (
+            <div className="modal-overlay" onClick={fecharModal}>
+              <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <img src={imagemSelecionada} alt="Ampliação" />
+                <div className="close-modal" onClick={fecharModal}><i className="fas fa-times-circle"></i> Fechar</div>
+              </div>
+            </div>
+          )}
+
+          <footer>
+            <p>Ivo Munguambe — Designer Gráfico</p>
+          </footer>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
