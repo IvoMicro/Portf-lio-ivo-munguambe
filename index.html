@@ -81,6 +81,7 @@
       gap: 10px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 1rem;
       transition: 0.25s;
     }
     .cv-btn:hover {
@@ -129,6 +130,7 @@
       width: 100%;
       height: 280px;
       object-fit: cover;
+      display: block;
       transition: transform 0.5s;
     }
     .project-card:hover .card-img {
@@ -245,7 +247,7 @@
       text-transform: uppercase;
     }
 
-    /* Banner CTA - imagem com extensão .jpeg */
+    /* Banner CTA */
     .cta-banner {
       position: relative;
       background-size: cover;
@@ -319,11 +321,14 @@
       height: 100%;
       background: rgba(0,0,0,0.92);
       backdrop-filter: blur(12px);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       cursor: pointer;
+    }
+    .modal-overlay.aberto {
+      display: flex;
     }
     .modal-content img {
       max-width: 90vw;
@@ -362,130 +367,117 @@
   </style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="name">Ivo Munguambe</div>
+      <h1>Bem‑vindo ao meu portfólio</h1>
+      <p>Designer gráfico especialista em <strong>Corel Draw</strong>, com domínio intermediário em <strong>Adobe Illustrator, Photoshop e Affinity Designer</strong>.</p>
+      <button id="btnCV" class="cv-btn"><i class="fas fa-download"></i> Baixar meu CV (PDF)</button>
+    </div>
+  </div>
 
-  <script type="text/babel">
-    const projetos = Array.from({ length: 15 }, (_, i) => ({
-      id: i + 1,
-      imagem: `assets/imagens/projeto${i+1}.jpg`
-    }));
+  <div class="container projects-section">
+    <div class="section-title">Portfólio</div>
+    <p style="margin-top:0.75rem;color:#aaa;">Clique sobre qualquer imagem para ampliar.</p>
+    <div class="project-grid" id="projectGrid"></div>
+  </div>
 
-    const caminhoCV = "assets/cv/Meu_CV.pdf";
-    const imagemFundoHero = "assets/imagens/fundo-hero.jpg";
-    // ALTERADO: agora aponta para .jpeg
-    const imagemFundoCTA = "assets/imagens/fundo-cta.jpeg";
-    const whatsappNumero = "258875707624";
-    const emailContato = "ivomicroship@gmail.com";
+  <div class="tools-section">
+    <div class="container">
+      <div class="tools-header">
+        <h3>Ferramentas &amp; domínio</h3>
+        <p>softwares que utilizo no dia a dia</p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card"><i class="fab fa-adobe tool-icon"></i><span>Illustrator</span><small>Adobe</small></div>
+        <div class="tool-card"><i class="fas fa-draw-polygon tool-icon"></i><span>Corel Draw</span><small>Corel</small></div>
+        <div class="tool-card"><i class="fab fa-adobe tool-icon"></i><span>Photoshop</span><small>Adobe</small></div>
+        <div class="tool-card"><i class="fas fa-pen-nib tool-icon"></i><span>Affinity Designer</span><small>Serif</small></div>
+      </div>
+    </div>
+  </div>
 
-    const App = () => {
-      const [modalOpen, setModalOpen] = React.useState(false);
-      const [imagemSelecionada, setImagemSelecionada] = React.useState("");
+  <div class="cta-banner" id="ctaBanner">
+    <div class="cta-content">
+      <h2>Precisa de uma identidade visual marcante?</h2>
+      <p>Vamos transformar suas ideias em design de impacto.</p>
+      <div class="cta-contact">
+        <a href="https://wa.me/258875707624" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> (87) 5707-624</a>
+        <a href="mailto:ivomicroship@gmail.com"><i class="fas fa-envelope"></i> ivomicroship@gmail.com</a>
+      </div>
+    </div>
+  </div>
 
-      const abrirModal = (img) => {
-        setImagemSelecionada(img);
-        setModalOpen(true);
-        document.body.style.overflow = "hidden";
-      };
-      const fecharModal = () => {
-        setModalOpen(false);
-        document.body.style.overflow = "auto";
-      };
-      const baixarCV = () => {
-        const link = document.createElement("a");
-        link.href = caminhoCV;
-        link.download = "Meu_CV.pdf";
-        link.click();
-      };
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content" id="modalContent">
+      <img id="modalImg" src="" alt="Ampliação">
+      <div class="close-modal" id="btnFechar"><i class="fas fa-times-circle"></i> Fechar</div>
+    </div>
+  </div>
 
-      React.useEffect(() => {
-        const hero = document.querySelector('.hero');
-        if (hero) hero.style.backgroundImage = `url('${imagemFundoHero}')`;
-        
-        const cta = document.querySelector('.cta-banner');
-        if (cta) {
-          const imgTest = new Image();
-          imgTest.src = imagemFundoCTA;
-          imgTest.onload = () => {
-            cta.style.backgroundImage = `url('${imagemFundoCTA}')`;
-          };
-          imgTest.onerror = () => {
-            console.log("Imagem fundo-cta.jpeg não encontrada, usando cor sólida");
-            cta.style.backgroundImage = 'none';
-          };
-        }
-      }, []);
+  <footer>
+    <p>Ivo Munguambe — Designer Gráfico</p>
+  </footer>
 
-      return (
-        <div>
-          <div className="hero">
-            <div className="hero-content">
-              <div className="name">Ivo Munguambe</div>
-              <h1>Bem‑vindo ao meu portfólio</h1>
-              <p>Designer gráfico especialista em <strong>Corel Draw</strong>, com domínio intermediário em <strong>Adobe Illustrator, Photoshop e Affinity Designer</strong>.</p>
-              <button onClick={baixarCV} className="cv-btn"><i className="fas fa-download"></i> Baixar meu CV (PDF)</button>
-            </div>
-          </div>
+  <script>
+    // Caminhos
+    var caminhoCV = "assets/cv/Meu_CV.pdf";
+    var imagemFundoCTA = "assets/imagens/fundo-cta.jpeg";
+    var totalProjetos = 15;
 
-          <div className="container projects-section">
-            <div className="section-title">Portfólio</div>
-            <p style={{ marginTop: "0.75rem", color: "#aaa" }}>Clique sobre qualquer imagem para ampliar.</p>
-            <div className="project-grid">
-              {projetos.map(proj => (
-                <div key={proj.id} className="project-card" onClick={() => abrirModal(proj.imagem)}>
-                  <img src={proj.imagem} alt={`Projeto ${proj.id}`} className="card-img" loading="lazy" />
-                  <div className="overlay-click"><i className="fas fa-search-plus"></i> clique aqui</div>
-                </div>
-              ))}
-            </div>
-          </div>
+    // Monta a grade de projetos
+    var grid = document.getElementById("projectGrid");
+    for (var i = 1; i <= totalProjetos; i++) {
+      var card = document.createElement("div");
+      card.className = "project-card";
+      card.innerHTML =
+        '<img src="assets/imagens/projeto' + i + '.jpg" alt="Projeto ' + i + '" class="card-img" loading="lazy">' +
+        '<div class="overlay-click"><i class="fas fa-search-plus"></i> clique aqui</div>';
+      (function (src) {
+        card.addEventListener("click", function () {
+          abrirModal(src);
+        });
+      })("assets/imagens/projeto" + i + ".jpg");
+      grid.appendChild(card);
+    }
 
-          <div className="tools-section">
-            <div className="container">
-              <div className="tools-header">
-                <h3>Ferramentas & domínio</h3>
-                <p>softwares que utilizo no dia a dia</p>
-              </div>
-              <div className="tools-grid">
-                <div className="tool-card"><i className="fab fa-adobe tool-icon"></i><span>Illustrator</span><small>Adobe</small></div>
-                <div className="tool-card"><i className="fas fa-draw-polygon tool-icon"></i><span>Corel Draw</span><small>Corel</small></div>
-                <div className="tool-card"><i className="fab fa-adobe tool-icon"></i><span>Photoshop</span><small>Adobe</small></div>
-                <div className="tool-card"><i className="fas fa-paintbrush-fine tool-icon"></i><span>Affinity Designer</span><small>Serif</small></div>
-              </div>
-            </div>
-          </div>
+    // Modal
+    var modalOverlay = document.getElementById("modalOverlay");
+    var modalImg = document.getElementById("modalImg");
+    var modalContent = document.getElementById("modalContent");
 
-          <div className="cta-banner">
-            <div className="cta-content">
-              <h2>Precisa de uma identidade visual marcante?</h2>
-              <p>Vamos transformar suas ideias em design de impacto.</p>
-              <div className="cta-contact">
-                <a href={`https://wa.me/${whatsappNumero}`} target="_blank"><i className="fab fa-whatsapp"></i> (87) 5707-624</a>
-                <a href={`mailto:${emailContato}`}><i className="fas fa-envelope"></i> ivomicroship@gmail.com</a>
-              </div>
-            </div>
-          </div>
+    function abrirModal(src) {
+      modalImg.src = src;
+      modalOverlay.classList.add("aberto");
+      document.body.style.overflow = "hidden";
+    }
+    function fecharModal() {
+      modalOverlay.classList.remove("aberto");
+      document.body.style.overflow = "auto";
+    }
+    modalOverlay.addEventListener("click", fecharModal);
+    modalContent.addEventListener("click", function (e) { e.stopPropagation(); });
+    document.getElementById("btnFechar").addEventListener("click", fecharModal);
 
-          {modalOpen && (
-            <div className="modal-overlay" onClick={fecharModal}>
-              <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <img src={imagemSelecionada} alt="Ampliação" />
-                <div className="close-modal" onClick={fecharModal}><i className="fas fa-times-circle"></i> Fechar</div>
-              </div>
-            </div>
-          )}
+    // Botão de baixar CV
+    document.getElementById("btnCV").addEventListener("click", function () {
+      var link = document.createElement("a");
+      link.href = caminhoCV;
+      link.download = "Meu_CV.pdf";
+      link.click();
+    });
 
-          <footer>
-            <p>Ivo Munguambe — Designer Gráfico</p>
-          </footer>
-        </div>
-      );
+    // Banner CTA: usa a imagem se existir, senão fica na cor sólida de fundo
+    var cta = document.getElementById("ctaBanner");
+    var imgTest = new Image();
+    imgTest.src = imagemFundoCTA;
+    imgTest.onload = function () {
+      cta.style.backgroundImage = "url('" + imagemFundoCTA + "')";
     };
-
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    imgTest.onerror = function () {
+      cta.style.backgroundImage = "none";
+    };
   </script>
 </body>
 </html>
